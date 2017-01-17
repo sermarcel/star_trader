@@ -3,11 +3,15 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, ProductSerializer
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
 from .models import Ship, Planet, Player, Product
 from django.http import Http404
 from rest_framework import generics
-# Create your views here.
+
+
+
+# Serializers
 
 
 class ShipList(generics.ListCreateAPIView):
@@ -41,4 +45,17 @@ class ProductList(generics.ListCreateAPIView):
 class ProductDetail(generics.RetrieveDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+# new player
+
+class PlayerCreate(CreateView):
+    model = Player
+    fields = ['nick', 'ship']
+    template_name='st_app/stage1.html'
+    #success_url = '/thanks/'
+
+# buy Products
+
+
+
 

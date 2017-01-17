@@ -7,7 +7,7 @@ from django.utils import timezone
 class Player(models.Model):
     nick = models.CharField(max_length=12)
     creation_date = models.DateTimeField(default=timezone.now)
-    money = models.IntegerField(null=False, default=0)
+    money = models.IntegerField(null=False, default=100)
     ship = models.ForeignKey('Ship')
 
     def __str__(self):
@@ -29,6 +29,7 @@ class Ship(models.Model):
     defence = models.IntegerField(null=False)
     speed = models.IntegerField(null=False)
     planet = models.OneToOneField(Planet)
+    product=models.ManyToManyField('Product', through='ShipProduct' )
 
     def __str__(self):
         return self.ship_name
@@ -49,3 +50,16 @@ class PlanetProduct(models.Model):
     def __str__(self):
         
         return '{} {} {}'.format(self.planet, self.product, self.actual_price)
+
+
+class ShipProduct(models.Model):
+    ship=models.ForeignKey(Ship)
+    product=models.ForeignKey(Product)
+    quantity=models.IntegerField(null=True)
+
+    def __str__(self):
+        
+        return '{} {} {}'.format(self.ship, self.product, self.quantity)
+
+
+

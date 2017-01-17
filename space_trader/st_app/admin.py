@@ -1,5 +1,5 @@
 from django.contrib import admin
-from st_app.models import Player, Ship, Product, Planet, PlanetProduct
+from st_app.models import Player, Ship, Product, Planet, PlanetProduct, ShipProduct
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
@@ -27,3 +27,9 @@ class PlanetProductAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     
     list_display =('product_name',)
+
+@admin.register(ShipProduct)
+class ShipProductAdmin(admin.ModelAdmin):
+    
+    list_display =('ship','product', 'quantity')
+    

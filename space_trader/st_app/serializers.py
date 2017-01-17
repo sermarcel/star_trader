@@ -1,13 +1,13 @@
 from .models import Ship, Planet, PlanetProduct, Player, Product
 from rest_framework import serializers
 
-class ShipSerializer(serializers.HyperlinkedModelSerializer):
+class ShipSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Ship
         fields = '__all__'
 
-class PlanetSerializer(serializers.HyperlinkedModelSerializer):
+class PlanetSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Planet

@@ -1,0 +1,96 @@
+	
+html, body { margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  cursor: url(content/spaceship.png), auto;
+  position: relative;
+  min-height: 100%;
+}
+
+
+#bgvideo {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(content/bg_image.jpg) no-repeat;
+    background-size: cover; 
+}
+
+#ramka {
+	width: 521px;
+	height: 312px;
+	border-style: hidden;
+	margin: auto;
+  text-align: center;
+	background-color: transparent;
+  margin: -200px 0 0 -270px;
+  left: 50%;
+  top: 50%;
+  position: absolute;
+}
+
+#start {
+  cursor: url(content/spaceship.png), auto;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: white;
+  border: none;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+#start:hover {
+  background-color: #404040;
+  cursor: url(content/spaceship.png), auto;
+}
+
+.button {
+  cursor: url(content/spaceship.png), auto;
+  background-color: rgba(255, 255, 255, 0.1); 
+  color: white;
+  border: none;
+  text-align: center;
+  font-size: 20px;
+  padding: 20px;
+  width: 100%;
+  margin-top: 0;
+}
+
+.button:hover {
+	background-color: #404040;
+  cursor: url(content/spaceship.png), auto;
+}
+
+#stopka {
+	color: white;
+	margin-left: auto;
+	padding: 10px;
+	font-size: 10px;
+  position: absolute;
+  bottom: 0;
+}
+
+.options {
+  display: none; 
+  background-color: transparent; 
+  color: white;
+  border: none;
+  text-align: center;
+  font-size: 20px;
+  padding: 0;
+  width: 100%;
+  margin-top: 40px;
+  cursor: url(content/spaceship.png), auto;
+}

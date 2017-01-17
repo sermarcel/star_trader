@@ -1,0 +1,33 @@
+
+html, body { margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  cursor: url(content/spaceship.png), auto;
+  position: relative;
+  min-height: 100%;
+  background-color: darkgray;
+}
+
+#opis {
+
+  width: 350px;
+  height: 200px;
+  padding: 10px;
+  padding-left: 30px;
+  font-size: 18px;
+  color: white;
+  font-family: 'VT323', monospace;
+  background-color: #09092a;
+}
+
+.nazwa {
+	font-size: 24px;
+	color: orange;
+	font-family: 'VT323', monospace;
+}
+
+.koszt {
+	color: lime;
+	font-size: 20px;
+}

@@ -1,0 +1,94 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Gra online Gwiezdny Kupiec">
+    <link rel="stylesheet" type="text/css" href="static/css/stage1.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+     <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="static/js/stage1.js"></script>
+	<title> Gwiezdny Kupiec - wybierz statek</title>
+</head>
+
+<body>
+
+<video playsinline autoplay muted loop poster="static/content/bg_image.jpg" id="bgvideo">
+    <source src="static/content/bg_video.mp4" type="video/mp4">
+</video>
+
+
+<section>
+	
+	<span id="ramka">
+    <p id="choice"> Wybierz swój statek: </p>
+    
+     <form class='nick' action="" method="post" >
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" value="Wybierz">
+                </form>
+
+
+    <div class="statek">
+      <a href="#"><img src="static/content/falcon.gif" alt="Statek nr 1"></a>
+    </div>
+      <div class="opis">
+        <p class="nazwa"> Sokół Millenium </p>
+        <p> Szybkość <img src="static/content/falcon_speed.png"></p>
+        <p> Ładowność <img src="static/content/falcon_capacity.png"></p>
+        <p> Wytrzymałość <img src="static/content/falcon_resistance.png"></p>
+        <p class="koszt"> Koszt: XXXX </p>
+      </div>
+
+    <div class="statek">
+      <a href="#"><img src="static/content/startrek.png" alt="Statek nr 2"></a>
+    </div>
+      <div class="opis">
+        <p class="nazwa"> Enterprise </p>
+        <p> Szybkość <img src="static/content/falcon_speed.png"></p>
+        <p> Ładowność <img src="static/content/falcon_capacity.png"></p>
+        <p> Wytrzymałość <img src="static/content/falcon_resistance.png"></p>
+        <p class="koszt"> Koszt: XXXX </p>
+      </div>
+
+    <div class="statek">
+      <a href="#"><img src="static/content/nostromo.png" alt="Statek nr 3"></a>
+    </div>
+      <div class="opis">
+        <p class="nazwa"> Nostromo </p>
+        <p> Szybkość <img src="static/content/falcon_speed.png"></p>
+        <p> Ładowność <img src="static/content/falcon_capacity.png"></p>
+        <p> Wytrzymałość <img src="static/content/falcon_resistance.png"></p>
+        <p class="koszt"> Koszt: XXXX </p>
+      </div>
+
+    <div class="statek">
+      <a href="#"><img src="static/content/district.png" alt="Statek nr 4"></a>
+    </div>
+      <div class="opis">
+        <p class="nazwa"> Statek Matka </p>
+        <p> Szybkość <img src="static/content/falcon_speed.png"></p>
+        <p> Ładowność <img src="static/content/falcon_capacity.png"></p>
+        <p> Wytrzymałość <img src="static/content/falcon_resistance.png"></p>
+        <p class="koszt"> Koszt: XXXX </p>
+      </div>
+
+  </span>
+    
+
+
+<div id="stopka">
+<footer>
+  Copywrights by <a target="blank" href="https://github.com/sermarcel"> Marcin Brz </a>
+</footer>
+</div>
+
+
+</body>
+
+
+</html>
