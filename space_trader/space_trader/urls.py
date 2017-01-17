@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from st_app.views import ShipDetail, ShipList, PlanetDetail, PlanetList
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^ship/', ShipList.as_view(), name='ship-list'),
+    url(r'^ship/(?P<pk>(\d)+)', ShipDetail.as_view(), name='ship-detail'),
+    url(r'^planet/', PlanetList.as_view(), name='planet-list'),
+    url(r'^planet/(?P<pk>(\d)+)', PlanetDetail.as_view(), name='planet-detail'),
+    
 ]

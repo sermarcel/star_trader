@@ -7,7 +7,8 @@ from django.utils import timezone
 class Player(models.Model):
     nick = models.CharField(max_length=12)
     creation_date = models.DateTimeField(default=timezone.now)
-    money = models.IntegerField(null=False)
+    money = models.IntegerField(null=False, default=0)
+    ship = models.ForeignKey('Ship')
 
     def __str__(self):
         return self.nick
@@ -15,13 +16,14 @@ class Player(models.Model):
 
 class Planet(models.Model):
     planet_name = models.CharField(max_length=12)
+    product = models.ManyToManyField('Product', through='PlanetProduct')
+
 
     def __str__(self):
         return self.planet_name
 
 class Ship(models.Model):
     ship_name= models.CharField(max_length=12)
-    player = models.ForeignKey(Player)
     capacity = models.IntegerField(null=False)
     attack = models.IntegerField(null=False)
     defence = models.IntegerField(null=False)
@@ -35,7 +37,15 @@ class Ship(models.Model):
 class Product(models.Model):
     product_name = models.CharField(max_length=12)
     how_many_space = models.IntegerField(null=False)
-    actual_price = models.IntegerField(null=False)
 
     def __str__(self):
         return self.product_name
+
+class PlanetProduct(models.Model):
+    planet=models.ForeignKey(Planet)
+    product=models.ForeignKey(Product)
+    actual_price=models.IntegerField(null=True)
+
+    def __str__(self):
+        
+        return '{} {} {}'.format(self.planet, self.product, self.actual_price)
