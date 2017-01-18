@@ -52,7 +52,7 @@ class PlayerCreate(CreateView):
     model = Player
     fields = ['nick', 'ship']
     template_name='st_app/stage1.html'
-    #success_url = '/thanks/'
+    success_url = '/st_app/main.html'
 
 # buy Products
 

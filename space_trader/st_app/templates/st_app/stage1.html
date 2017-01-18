@@ -26,14 +26,17 @@
 	<span id="ramka">
     <p id="choice"> Wybierz swój statek: </p>
     
-     <form class='nick' action="" method="post" >
+     
+       <form id='nick' action="" method="POST" >
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <input type="submit" value="Wybierz">
-                </form>
+                    <div id="baza">{{ form.nick }}</div>
+                    <div id=cssShip>{{ form.ship }}</div>
+                    <input type="submit" class="button" value="DALEJ">
+            </form>
+     
 
 
-    <div class="statek">
+    <div class="statek" data-id = '1'>
       <a href="#"><img src="static/content/falcon.gif" alt="Statek nr 1"></a>
     </div>
       <div class="opis">
@@ -44,7 +47,7 @@
         <p class="koszt"> Koszt: XXXX </p>
       </div>
 
-    <div class="statek">
+    <div class="statek" data-id='2'>
       <a href="#"><img src="static/content/startrek.png" alt="Statek nr 2"></a>
     </div>
       <div class="opis">
@@ -55,7 +58,7 @@
         <p class="koszt"> Koszt: XXXX </p>
       </div>
 
-    <div class="statek">
+   <div class="statek" data-id='3'>
       <a href="#"><img src="static/content/nostromo.png" alt="Statek nr 3"></a>
     </div>
       <div class="opis">
@@ -66,7 +69,7 @@
         <p class="koszt"> Koszt: XXXX </p>
       </div>
 
-    <div class="statek">
+    <div class="statek" data-id='4'>
       <a href="#"><img src="static/content/district.png" alt="Statek nr 4"></a>
     </div>
       <div class="opis">

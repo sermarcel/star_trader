@@ -112,7 +112,19 @@ p {
   	bottom: 0;
 }
 
-.nick {
-  display: none;
-  
+#nick {
+  display: none;  
 }
+
+#baza {
+  padding-top: 50px;
+  padding-bottom: 325px;
+  padding-left: 30px;
+}
+
+#cssShip {
+  visibility: hidden
+}
+
+
+
