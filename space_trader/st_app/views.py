@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, ProductSerializer
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
-from st_app.models import Ship, Planet, Player, Product
+from st_app.models import Ship, Planet, Player, Product, PlanetProduct
 from django.http import Http404
 from rest_framework import generics
 from random import randint
@@ -61,25 +61,31 @@ def product_price():
     planet_count=Planet.objects.count()
     product_count=Product.objects.count()
     price_list=[]
+    #pp=PlanetProduct.objects.get(pk=2)
     
-    print (product_count)
+
+ #   print (pp)
     print (planet_count)
+    print (product_count)
     
-    for pl in range (0, planet_count):
+    
+    for pl in  Planet.objects.all():
         price_product_list=[]
-        for pr in range(0, product_count):
-            pl =randint(0,100)
-            pr =randint(0,100)
+        for pr in Product.objects.all() :
+            prp = randint(0,100)
+            # pr =randint(0,100)
             price_product_list.append(pl)
+            pp, create = PlanetProduct.objects.get_or_create(planet=pl, product=pr)
+            pp.actual_price=prp
+            pp.save()   
+            print(pp)       
            # price_list[pl].append([pr])
-        price_list.append(price_product_list)
-    print(price_list[1][1])       
-    return price_list
-    # planet=Planet.objects.get(pk=id_planet)
-    # product=Product.objects.get(pk=id_price)
-    #return 'Dla planety {} cena produktu {} wynosi {}'.format(planet, product, price)
+    return price_list 
+        # price_list.append(price_product_list)
+    # print(price_list[1][1])   
     
-print(product_price())
+
+#print(product_price())
 
 
 
