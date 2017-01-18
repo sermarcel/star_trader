@@ -5,10 +5,12 @@ from rest_framework.response import Response
 from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, ProductSerializer
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
-from st_app.models import Ship, Planet, Player, Product, PlanetProduct
+from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct
 from django.http import Http404
 from rest_framework import generics
-from random import randint
+from random import randint, choice
+from django.forms import formset_factory
+from django.views import View
 
 
 
@@ -55,16 +57,16 @@ class PlayerCreate(CreateView):
     template_name='st_app/stage1.html'
     success_url = '/st_app/main.html'
 
-# Product price on each planet
+
+
+
+# Random product price on each planet
 
 def product_price():
     planet_count=Planet.objects.count()
     product_count=Product.objects.count()
     price_list=[]
-    #pp=PlanetProduct.objects.get(pk=2)
     
-
- #   print (pp)
     print (planet_count)
     print (product_count)
     
@@ -79,18 +81,55 @@ def product_price():
             pp.actual_price=prp
             pp.save()   
             print(pp)       
-           # price_list[pl].append([pr])
     return price_list 
-        # price_list.append(price_product_list)
-    # print(price_list[1][1])   
-    
-
 #print(product_price())
 
+# buying/selling on si  ngle planet: We need quantity, product, price, money        
+'''class PriceView(UpdateView):
+
+    model=ShipProduct
+    fields=['quantity','product']
+    template_name='st_app/stage2.html'
+    success_url = '/st_app/main.html'
+
+'''
+
+class PriceView(View):
+
+    def get(self, request):
+    # download last player data            
+        
+        d = dict()
+
+        actual_player = Player.objects.order_by('-creation_date')[0]
+        player_money = actual_player.money
+        ship = actual_player.ship
+        actual_planet = ship.planet
+        products_onboard =ShipProduct.objects.filter(ship=ship)
+        product_prices=PlanetProduct.objects.filter(planet=actual_planet)
 
 
 
+        d['actual_player'] = actual_player
+        d['player_money'] = player_money
+        d['ship'] = ship
+        d['actual_planet'] = actual_planet
+        d['products_onboard']=products_onboard
+        d['product_prices']=product_prices
 
+        return render(request, 'st_app/stage2.html', d)
+        
+    def post(self, request):
+        pass
+
+# where are pirates?
+
+def pirates_location():
+
+    planets=Planet.objects.all()
+    pirates=choice(planets)
+    return pirates
+#print(pirates_location())
 
 
 

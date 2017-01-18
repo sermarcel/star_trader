@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from st_app.views import ShipDetail, ShipList, PlanetDetail, PlanetList, PlayerCreate
+from st_app.views import ShipDetail, ShipList, PlanetDetail, PlanetList, PlayerCreate, \
+PriceView
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,6 +26,7 @@ urlpatterns = [
     url(r'^planet/', PlanetList.as_view(), name='planet-list'),
     url(r'^planet/(?P<pk>(\d)+)', PlanetDetail.as_view(), name='planet-detail'),
     url(r'^stage1', PlayerCreate.as_view(), name='new_player-form'),
+    url(r'^stage2', PriceView.as_view(), name='product_buy_sell-form'),
     
     
 ]
