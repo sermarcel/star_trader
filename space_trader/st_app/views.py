@@ -6,7 +6,7 @@ from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, Pro
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
 from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from rest_framework import generics
 from random import randint, choice
 from django.forms import formset_factory
@@ -84,21 +84,14 @@ def product_price():
             price_product_list.append(pl)
             pp, create = PlanetProduct.objects.get_or_create(planet=pl, product=pr)
             pp.actual_price=prp
-            pp.save()   
+            pp.save()  
             print(pp)       
-    return price_list 
+    return price_product_list 
+
 #print(product_price())
 
-# buying/selling on si  ngle planet: We need quantity, product, price, money        
-'''class PriceView(UpdateView):
 
-    model=ShipProduct
-    fields=['quantity','product']
-    template_name='st_app/stage2.html'
-    success_url = '/st_app/main.html'
-
-'''
-
+# Buying selling form
 class PriceView(View):
 
     def get(self, request):
@@ -132,28 +125,76 @@ class PriceView(View):
         ship = actual_player.ship
         actual_planet = ship.planet
         products_onboard =ShipProduct.objects.filter(ship=ship)
-        ordering=products_onboard.order_by('product__product_name').values_list('product__product_name','quantity')
-   
-        product_prices=PlanetProduct.objects.filter(planet=actual_planet)
+        p_onboard=products_onboard.order_by('product__product_name').values_list('product__product_name','quantity')
         
-        #print(ordering)
-        # data after
+        product_prices=PlanetProduct.objects.filter(planet=actual_planet).values_list('product__product_name','actual_price')
+    
+        # data after buying/selling
         form=request.POST
-        
-        
- 
-        for o in ordering:
+     
+        print(form)
+        # list of changed values
+        delta_list_final=[] 
+        for o in p_onboard:
+            delta_list=[]
+            delta_list.append(o[0])
+            #print(delta_list)
             for d in form:
                 if o[0]==d:
-                    #print(isinstance(o[1],int))
                     d_to_int=int(form[d])
-                    #print(isinstance(d_to_int,int))
-                    delta=d_to_int - o[1]
                     
-                
+        # check if not (-) value
+                    if d_to_int<0:
+                        return HttpResponse ("Nie możesz sprzedać to czego nie masz")
+                    
+                    delta=d_to_int - o[1]
+                    #print (delta)
+                    delta_list.append(delta)
+                    delta_list_final.append(delta_list)
+
+        #print(delta_list_final)
+        #print (product_prices)
+        balance=0
+        for d in delta_list_final:
+            #print(d)
+            for p in product_prices:
+                if p[0]==d[0]:
+                    buy_sell = p[1] * d[1]
+                    #print (buy_sell)
+                #if d[0]==p[1]:
+                    balance+=buy_sell
+        print(balance)
+        print(player_money)
+        
+        # update money in database
+        if balance > player_money:
+            return HttpResponse('Nie masz wystarczajaco kasy na zakupy')
+        else:
+            player_money = player_money - balance
+            actual_player, create = Player.objects.get_or_create(nick=actual_player)
+            actual_player.money=player_money
+            actual_player.save()
+            
+            # update stock
+            print(delta_list_final)
+            print (p_onboard)
+
+            for d in delta_list_final:
+                for p in p_onboard:
+                    if d[0]==p[0]:
+                        new_items=d[1]+p[1]
+                        products_onboard, create = ShipProduct.objects.get_or_create(ship__ship_name=ship, product__product_name=p[0])
+                        products_onboard.quantity=new_items
+                        products_onboard.save()
+                        print(new_items)
+
+            #return render(request, 'st_app/stage1.html')
+            
+        print(player_money)
+
         return render(request, 'st_app/stage2.html')
         
-        
+      
 
 
 # where are pirates?
