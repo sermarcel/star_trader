@@ -1,0 +1,42 @@
+<head>
+   
+     <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="static/js/stage1.js"></script>
+	<title> Gwiezdny Kupiec - wybierz statek</title>
+</head>
+
+
+ <form id='nick' action="" method="POST" >
+                    {% csrf_token %}
+                    <div id="" >{{ player_money }} </div>
+                    <input id=""  value='{{ actual_player}}' >
+                     
+                    {% for p in products_onboard %}
+                    <div id="">{{ p.product}}</div>
+                    <input id='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'>
+                    
+                    {% endfor %}
+                    <div id="baza" options='disable'>
+                    
+                    <input type="submit" class="button" value="DALEJ">
+            </form>
+     
+
+
+
+    <span style="text-align: center; width: 100%">
+      <div>
+        {%for p in product_prices%}
+                    <input id="baza"  value='{{ p.product}}'>
+
+                    <input id="baza"  value='{{ p.actual_price}}'>
+            
+                    {% endfor %}
+
+      </div>
+    </span>
+    
+     

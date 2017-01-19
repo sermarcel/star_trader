@@ -61,5 +61,12 @@ class ShipProduct(models.Model):
         
         return '{} {} {}'.format(self.ship, self.product, self.quantity)
 
+class Stage (models.Model):
+    stage_number = models.IntegerField(default=1)
+    player = models.ForeignKey(Player)
+
+    def __str__(self):
+        return 'Player {} is on stage {}'.format(self.player, self.stage_number)
+
 
 

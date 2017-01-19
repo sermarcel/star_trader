@@ -5,12 +5,13 @@ from rest_framework.response import Response
 from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, ProductSerializer
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
-from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct
+from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage
 from django.http import Http404
 from rest_framework import generics
 from random import randint, choice
 from django.forms import formset_factory
 from django.views import View
+from st_app.forms import ShipProductForm
 
 
 
@@ -57,7 +58,11 @@ class PlayerCreate(CreateView):
     template_name='st_app/stage1.html'
     success_url = '/st_app/main.html'
 
+# add player to stage one
 
+def add_stage_one():
+    actual_player = Player.objects.order_by('-creation_date')[0]
+    new_stage=Stage.objects.create(player=actual_player)
 
 
 # Random product price on each planet
@@ -118,9 +123,38 @@ class PriceView(View):
         d['product_prices']=product_prices
 
         return render(request, 'st_app/stage2.html', d)
-        
+
     def post(self, request):
-        pass
+        
+        # data before buying/selling        
+        actual_player = Player.objects.order_by('-creation_date')[0]
+        player_money = actual_player.money
+        ship = actual_player.ship
+        actual_planet = ship.planet
+        products_onboard =ShipProduct.objects.filter(ship=ship)
+        ordering=products_onboard.order_by('product__product_name').values_list('product__product_name','quantity')
+   
+        product_prices=PlanetProduct.objects.filter(planet=actual_planet)
+        
+        #print(ordering)
+        # data after
+        form=request.POST
+        
+        
+ 
+        for o in ordering:
+            for d in form:
+                if o[0]==d:
+                    #print(isinstance(o[1],int))
+                    d_to_int=int(form[d])
+                    #print(isinstance(d_to_int,int))
+                    delta=d_to_int - o[1]
+                    
+                
+        return render(request, 'st_app/stage2.html')
+        
+        
+
 
 # where are pirates?
 
