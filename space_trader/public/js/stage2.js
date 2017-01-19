@@ -44,22 +44,24 @@ var $planety=$('.planety')
             loop: true,
             //zIndexValues: [1, 5, 500, 100]
     });
-
-    $("#planeta5").css("left", $("#planeta5").position().right).circulate({
-            sizeAdjustment: 160,
-    
-            speed: 3000,
-            width: 800,
-            height: 150,
-            loop: true,
-            //zIndexValues: [1, 5, 500, 100]
-    });
 */
-      function startBallOne() {
-        $("#planeta5").circulate({
-            speed: 1000,
-            height: 5,
-            width: 15,
+ 
+ function startBall1() {
+        $("#planeta1").circulate({
+            speed: 2500,
+            height: 40,
+            width: 70,
+            sizeAdjustment: 90,
+            loop: true,
+            zIndexValues: [1, 100, 500, 100]
+        });
+    }
+
+ function startBall2() {
+        $("#planeta2").circulate({
+            speed: 1500,
+            height: 30,
+            width: 80,
             sizeAdjustment: 90,
             loop: true,
             zIndexValues: [1, 100, 500, 100]
@@ -67,7 +69,34 @@ var $planety=$('.planety')
     }
 
 
-startBallOne()
+ function startBall3() {
+        $("#planeta3").circulate({
+    
+            speed: 1000,
+            height: 30,
+            width: 40,
+            sizeAdjustment: 80,
+            loop: true,
+            //zIndexValues: [1, 5, 500, 100]
+
+    });
+ }
+      function startBall4() {
+        $("#planeta4").circulate({
+            speed: 2000,
+            height: 20,
+            width: 100,
+            sizeAdjustment: 90,
+            loop: true,
+            zIndexValues: [1, 100, 500, 100]
+        });
+    }
+
+startBall1()
+startBall2()
+startBall3()
+startBall4()
+
 
 
 $planety.on('click',function(){

@@ -94,9 +94,10 @@ def product_price():
 # Buying selling form
 class PriceView(View):
 
-    def get(self, request):
+    def get(self, request,planet_name):
     # download last player data            
         
+        print(planet_name)
         d = dict()
 
         actual_player = Player.objects.order_by('-creation_date')[0]
@@ -115,7 +116,7 @@ class PriceView(View):
         d['products_onboard']=products_onboard
         d['product_prices']=product_prices
 
-        return render(request, 'st_app/stage2.html', d)
+        return render(request, 'st_app/stage3.html', d)
 
     def post(self, request):
         
@@ -145,7 +146,7 @@ class PriceView(View):
                     
         # check if not (-) value
                     if d_to_int<0:
-                        return HttpResponse ("Nie możesz sprzedać to czego nie masz")
+                        return HttpResponse ("Nie możesz sprzedać tego, czego nie masz")
                     
                     delta=d_to_int - o[1]
                     #print (delta)
@@ -192,7 +193,7 @@ class PriceView(View):
             
         print(player_money)
 
-        return render(request, 'st_app/stage2.html')
+        return render(request, 'st_app/stage3.html')
         
       
 
@@ -203,9 +204,24 @@ def pirates_location():
 
     planets=Planet.objects.all()
     pirates=choice(planets)
-    return pirates
+    return pirates  
 #print(pirates_location())
 
+# next round
+def next_round():
 
+    actual_player = Player.objects.order_by('-creation_date')[0]
+    last_stage = Stage.objects.get(player=actual_player)
+    next_stage=last_stage.stage_number + 1
+    last_stage, create = Stage.objects.get_or_create(player=actual_player)
+    last_stage.stage_number=next_stage
+    last_stage.save()
 
+# next_round()
+
+class PlanetView(View):
+    
+    def get(self, request):
+
+        return render(request, 'st_app/stage2.html')
 

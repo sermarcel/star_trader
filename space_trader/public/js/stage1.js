@@ -15,14 +15,24 @@ var $choice=$('#choice')
 
 
 $ships.on('click',function(){
+
 var $your_ship=this
+console.log($cssShip)
 
 console.log($your_ship)
-console.log($cssShip.value)
-console.log($nickForm)
 
 
-$choice.text('Wpisz swój nick')
+console.log($($your_ship).data("id"))
+var $newShip=$($your_ship).data("id")
+
+$("#cssShip option:checked" ).val($newShip)
+console.log($("#cssShip option:checked").val())
+
+
+//console.log($nickForm)
+
+
+$choice.text('Wpisz swój nick:')
 $ships.hide()
 $nickForm.show()
 

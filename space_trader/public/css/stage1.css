@@ -116,8 +116,14 @@ p {
   display: none;  
 }
 
+#baza {
+  padding-top: 50px;
+  padding-bottom: 325px;
+  padding-left: 30px;
+}
+
 #cssShip {
-  display: none
+  visibility: hidden
 }
 
 
