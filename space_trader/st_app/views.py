@@ -94,16 +94,23 @@ def product_price():
 # Buying selling form
 class PriceView(View):
 
-    def get(self, request,planet_name):
-    # download last player data            
-        
-        print(planet_name)
-        d = dict()
+    def get(self, request,n_planet):
 
+        
+
+    # download last player data            
+        d = dict()
+       
         actual_player = Player.objects.order_by('-creation_date')[0]
         player_money = actual_player.money
+        
+        # changing player planet
+        ship=Ship.objects.filter(player__nick=actual_player).update(planet=1)
+        print (ship)
+        
         ship = actual_player.ship
-        actual_planet = ship.planet
+        actual_planet = ship.planet    
+        
         products_onboard =ShipProduct.objects.filter(ship=ship)
         product_prices=PlanetProduct.objects.filter(planet=actual_planet)
 
@@ -118,7 +125,7 @@ class PriceView(View):
 
         return render(request, 'st_app/stage3.html', d)
 
-    def post(self, request):
+    def post(self, request,n_planet):
         
         # data before buying/selling        
         actual_player = Player.objects.order_by('-creation_date')[0]

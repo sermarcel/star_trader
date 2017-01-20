@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^stage1', PlayerCreate.as_view(), name='new_player-form'),
     url(r'^stage2', PlanetView.as_view(), name='planet-choice'),    
    # url(r'^stage3', PriceView.as_view(), name='product_buy_sell-form'),
-    url(r'^stage3/(?P<planet_name>([A-Z]){1}([a-z])+)$',PriceView.as_view(), name='product_buy_sell-form')
+    url(r'^stage3/(?P<n_planet>([A-Z]){1}([a-z])+)$',PriceView.as_view(), name='product_buy_sell-form')
 ]

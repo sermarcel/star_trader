@@ -9,6 +9,7 @@ class Player(models.Model):
     creation_date = models.DateTimeField(default=timezone.now)
     money = models.IntegerField(null=False, default=100)
     ship = models.ForeignKey('Ship')
+   
 
     def __str__(self):
         return self.nick
@@ -28,7 +29,7 @@ class Ship(models.Model):
     attack = models.IntegerField(null=False)
     defence = models.IntegerField(null=False)
     speed = models.IntegerField(null=False)
-    planet = models.OneToOneField(Planet)
+    planet = models.ForeignKey(Planet)
     product=models.ManyToManyField('Product', through='ShipProduct' )
 
     def __str__(self):
