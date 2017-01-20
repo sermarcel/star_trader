@@ -7,47 +7,10 @@ $(document).ready(function(event){
 //$(window).load(function() {
 
 var $planety=$('.planety')
-/*
 
-    $("#planeta1").css("left", $("#planeta1").position().right).circulate({
-            sizeAdjustment: 160,
-            speed: 3500,
-            width: 800,
-            height: 150,
-            loop: true,
-            zIndexValues: [1, 5, 00, 100]
-    });
-
-    $("#planeta2").css("left", $("#planeta2").position().right).circulate({
-            sizeAdjustment: 160,
-            speed: 4000,
-            width: 800,
-            height: 150,
-            loop: true,
-            //zIndexValues: [1, 5, 500, 100]
-    });
-
-    $("#planeta3").css("left", $("#planeta3").position().right).circulate({
-            sizeAdjustment: 160,
-            speed: 3000,
-            width: 800,
-            height: 150,
-            loop: true,
-            //zIndexValues: [1, 5, 500, 100]
-    });
-
-    $("#planeta4").css("left", $("#planeta4").position().right).circulate({
-            sizeAdjustment: 160,
-            speed: 3000,
-            width: 800,
-            height: 150,
-            loop: true,
-            //zIndexValues: [1, 5, 500, 100]
-    });
-*/
  
  function startBall1() {
-        $("#planeta1").circulate({
+        $("#Solaris").circulate({
             speed: 2500,
             height: 40,
             width: 70,
@@ -58,7 +21,7 @@ var $planety=$('.planety')
     }
 
  function startBall2() {
-        $("#planeta2").circulate({
+        $("#Krypton").circulate({
             speed: 1500,
             height: 30,
             width: 80,
@@ -70,7 +33,7 @@ var $planety=$('.planety')
 
 
  function startBall3() {
-        $("#planeta3").circulate({
+        $("#Genezis").circulate({
     
             speed: 1000,
             height: 30,
@@ -82,7 +45,7 @@ var $planety=$('.planety')
     });
  }
       function startBall4() {
-        $("#planeta4").circulate({
+        $("#Pandora").circulate({
             speed: 2000,
             height: 20,
             width: 100,
@@ -101,14 +64,18 @@ startBall4()
 
 $planety.on('click',function(){
 
-//$planety.circulate("Stop");
-console.log("clik")
+
+var $destinationPlanet =this
+$destinationPlanet=$($destinationPlanet).attr('id')
+var $planetId=$(this).data("id")
+var link='stage3/'+$destinationPlanet
+console.log(link)
+$('.button').val('Lecę na ' + $destinationPlanet +' !!!')
+$('a').attr('href',link)
 
 //});
 })
 
-$planety.on('mouseleave',function(){
-//startBallOne()
-})
+
 })
 

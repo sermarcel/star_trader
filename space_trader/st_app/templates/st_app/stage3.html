@@ -9,14 +9,15 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-    <script type="text/javascript" src="static/js/stage3.js"></script>
+    <script type="text/javascript" src="/static/js/stage3.js"></script>
 	<title> Gwiezdny Kupiec - wybierz statek</title>
 </head>
 
 <body>
 <form id='nick' action="" method="POST" >
-                    {% csrf_token %}
+                    {% csrf_token %}<p>Twoja kasa</p>
                     <div  >{{ player_money }} </div>
+                    <p> Player:</p>
                     <input  value='{{ actual_player}}' >
                      
                     {% for p in products_onboard %}
@@ -33,7 +34,7 @@
 
 
     <span style="text-align: center; width: 100%">
-      <div>
+      <div><p>Ceny produktów na planecie</p>
         {%for p in product_prices%}
                     <input   value='{{ p.product}}'>
 

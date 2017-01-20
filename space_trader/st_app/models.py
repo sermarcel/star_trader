@@ -56,7 +56,7 @@ class PlanetProduct(models.Model):
 class ShipProduct(models.Model):
     ship=models.ForeignKey(Ship)
     product=models.ForeignKey(Product)
-    quantity=models.IntegerField(null=True)
+    quantity=models.IntegerField(default=0)
 
     def __str__(self):
         
