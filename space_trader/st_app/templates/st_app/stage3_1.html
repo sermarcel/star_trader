@@ -15,53 +15,43 @@
 
 <section>
 	<span id="ramka">
-		<div id="history"> 
 			<h1 id="h1"> Jesteś na planecie {{actual_planet}}- pohandlujmy! </h1>
+		
 			<div class="towary">
-			Formularz z towarami, które mamy
-			
-			
-			<form id= action="" method="POST" >
-                    {% csrf_token %}<p>Twoja kasa</p>
-                    <div  >{{ player_money }} </div>
-                    <p> Player:</p>
-                    <input  value='{{ actual_player}}' >
+
+				<form id= action="" method="POST" >
+                    {% csrf_token %}
+					<p style="color: springgreen">Twoja kasa: 
+                    {{ player_money }} </p>
+                    <p style="display: none"> Player:
+                    <input  value='{{ actual_player}}' > </p>
                      
                     {% for p in products_onboard %}
-                    <div id="">{{ p.product}}</div>
-                    <input class='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'>
+					<p>{{ p.product}}
+                    <input class='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'> </p>
                     
                     {% endfor %}
-                    <div  options='disable'>
+					<options='disable'>
                     
-                    <input type="submit" class="button" value="DALEJ">
-            </form>
-
-			
-			
-			
+                    <input type="submit" class="button" style="width: 100%; margin-left: 0" value="DALEJ">
+				</form>
 			</div>
+		
+
 
 			<div class="towary">
-				Formularz z towarami na planecie
+				<p style="color: lightblue">Cennik towarów na planecie: </p>
 
 				  {%for p in product_prices%}
-                    <input   value='{{ p.product}}'>
+				   <p> {{ p.product}}
 
-                    <input   value='{{ p.actual_price}}'>
+                    <input   value='{{ p.actual_price}}'> </p>
             
                     {% endfor %}
-
-
-
 			</div>
-		</div>
 
-
-	
 	</span>
  
-
 </section>
 
 
