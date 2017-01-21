@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'st_app',
     'bootstrap3',
     'rest_framework',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
