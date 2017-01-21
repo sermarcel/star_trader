@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Gra online Gwiezdny Kupiec">
-    <link rel="stylesheet" type="text/css" href="css/stage3.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/stage3.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	
@@ -16,17 +16,48 @@
 <section>
 	<span id="ramka">
 		<div id="history"> 
-			<h1 id="h1"> Jesteś na planecie - pohandlujmy! </h1>
+			<h1 id="h1"> Jesteś na planecie {{actual_planet}}- pohandlujmy! </h1>
 			<div class="towary">
 			Formularz z towarami, które mamy
+			
+			
+			<form id= action="" method="POST" >
+                    {% csrf_token %}<p>Twoja kasa</p>
+                    <div  >{{ player_money }} </div>
+                    <p> Player:</p>
+                    <input  value='{{ actual_player}}' >
+                     
+                    {% for p in products_onboard %}
+                    <div id="">{{ p.product}}</div>
+                    <input class='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'>
+                    
+                    {% endfor %}
+                    <div  options='disable'>
+                    
+                    <input type="submit" class="button" value="DALEJ">
+            </form>
+
+			
+			
+			
 			</div>
 
 			<div class="towary">
 				Formularz z towarami na planecie
+
+				  {%for p in product_prices%}
+                    <input   value='{{ p.product}}'>
+
+                    <input   value='{{ p.actual_price}}'>
+            
+                    {% endfor %}
+
+
+
 			</div>
 		</div>
 
- 	<a href="#"><input type="button" class="button" value="LECĘ DALEJ"/></a>
+
 	
 	</span>
  

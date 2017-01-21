@@ -6,7 +6,7 @@ from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, Pro
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from rest_framework import status
 from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from rest_framework import generics
 from random import randint, choice
 from django.forms import formset_factory
@@ -64,22 +64,14 @@ class StartGame(View):
     def get(self, request):
         return render(request, 'st_app/main.html')
 
-# desc Stage
-
+# desccription with Stefan Stage
 
 class DescView(View):
 
     def get(self, request):
         return render(request, 'st_app/description.html')
 
-    def post(self, request):
-        return render(request, 'st_app/stage2.html')
-
-# go adventure
-
-
-def go(request):
-    return render(request, 'st_app/stage2.html')
+  
 
 
 # new player
@@ -136,13 +128,12 @@ class PriceView(View):
         player_money = actual_player.money
         ship = actual_player.ship
         ship=Ship.objects.get(ship_name=ship)
-        # changing player planet
+            # changing player planet
         ship.planet_id=p_id
         ship.save()
-        
+      
         actual_planet = ship.planet
-        print(actual_planet)
-
+        
         products_onboard = ShipProduct.objects.filter(ship=ship)
         product_prices = PlanetProduct.objects.filter(planet=actual_planet)
 
@@ -153,7 +144,7 @@ class PriceView(View):
         d['products_onboard'] = products_onboard
         d['product_prices'] = product_prices
 
-        return render(request, 'st_app/stage3.html', d)
+        return render(request, 'st_app/stage3_1.html', d)
 
     def post(self, request, p_id):
 
@@ -229,11 +220,9 @@ class PriceView(View):
                         products_onboard.save()
                         #print(new_items)
 
-            # return render(request, 'st_app/stage1.html')
-
-        #print(player_money)
-
-        return render(request, 'st_app/stage2.html')
+    
+        return HttpResponseRedirect('/stage2/')
+        #return render(request, 'st_app/stage2.html')
 
 
 # where are pirates?
@@ -245,8 +234,8 @@ def pirates_location():
     return pirates
 # print(pirates_location())
 
-# next round
 
+# next round
 
 def next_round():
 
@@ -263,5 +252,13 @@ def next_round():
 class PlanetView(View):
 
     def get(self, request):
+        
+        d = dict()
+        actual_player = Player.objects.order_by('-creation_date')[0]
+        player_money = actual_player.money
+        ship = actual_player.ship
+        actual_planet = ship.planet
+        d['player_money']=player_money
+        d['actual_planet']=actual_planet
+        return render(request, 'st_app/stage2.html', d)
 
-        return render(request, 'st_app/stage2.html')
