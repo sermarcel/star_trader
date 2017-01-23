@@ -58,11 +58,10 @@ class ProductDetail(generics.RetrieveDestroyAPIView):
 
 # start game
 
-
 class StartGame(View):
 
     def get(self, request):
-        return render (request, 'st_app/main.html')
+        return render(request, 'st_app/main.html')
 
 # desccription with Stefan Stage
 
@@ -70,52 +69,48 @@ class DescView(View):
 
     def get(self, request):
         add_stage_one()
-        return render (request,'st_app/description.html')
-
-  
+        return render(request, 'st_app/description.html')
 
 
-    
 # add player to stage one
 
 
 def add_stage_one():
-    actual_player = Player.objects.order_by('-creation_date')[0]
-    new_stage = Stage.objects.create(player=actual_player)
+    actual_player=Player.objects.order_by('-creation_date')[0]
+    new_stage=Stage.objects.create(player=actual_player)
 
 # new player
 
 class PlayerCreate(CreateView):
-    model = Player
-    fields = ['nick', 'ship']
-    template_name = 'st_app/stage1.html'
-    success_url = '/desc'
+    model=Player
+    fields=['nick', 'ship']
+    template_name='st_app/stage1.html'
+    success_url='/desc'
 
 # Random product price on each planet
 
 def product_price():
-    planet_count = Planet.objects.count()
-    product_count = Product.objects.count()
-    price_list = []
+    planet_count=Planet.objects.count()
+    product_count=Product.objects.count()
+    price_list=[]
 
     print(planet_count)
     print(product_count)
 
     for pl in Planet.objects.all():
-        price_product_list = []
+        price_product_list=[]
         for pr in Product.objects.all():
-            prp = randint(0, 100)
+            prp=randint(0, 100)
             # pr =randint(0,100)
             price_product_list.append(pl)
-            pp, create = PlanetProduct.objects.get_or_create(
+            pp, create=PlanetProduct.objects.get_or_create(
                 planet=pl, product=pr)
-            pp.actual_price = prp
+            pp.actual_price=prp
             pp.save()
             print(pp)
     return price_product_list
 
 # print(product_price())
-
 
 # Buying selling form
 class PriceView(View):
@@ -127,118 +122,118 @@ class PriceView(View):
         # download last player data
         p_id=int(p_id)
 
-        d = dict()
-        actual_player = Player.objects.order_by('-creation_date')[0]
-        player_money = actual_player.money
-        ship = actual_player.ship
+        d=dict()
+        actual_player=Player.objects.order_by('-creation_date')[0]
+        player_money=actual_player.money
+        ship=actual_player.ship
         ship=Ship.objects.get(ship_name=ship)
-        if p_id == ship.planet_id:
-            return HttpResponse ('Jesteś na tej planecie')
-        #next rund after checking if it's not the same planet
+
+        # next rund after checking if it's not the same planet
         next_round()
-            # changing player planet
+        # changing player planet
         ship.planet_id=p_id
         ship.save()
 
-        actual_planet = ship.planet
-        
-        products_onboard = ShipProduct.objects.filter(ship=ship)
-        product_prices = PlanetProduct.objects.filter(planet=actual_planet)
+        actual_planet=ship.planet
 
-        d['actual_player'] = actual_player
-        d['player_money'] = player_money
-        d['ship'] = ship
-        d['actual_planet'] = actual_planet
-        d['products_onboard'] = products_onboard
-        d['product_prices'] = product_prices
+        products_onboard=ShipProduct.objects.filter(ship=ship)
+        product_prices=PlanetProduct.objects.filter(planet=actual_planet)
+
+        d['actual_player']=actual_player
+        d['player_money']=player_money
+        d['ship']=ship
+        d['actual_planet']=actual_planet
+        d['products_onboard']=products_onboard
+        d['product_prices']=product_prices
 
         return render(request, 'st_app/stage3_1.html', d)
 
     def post(self, request, p_id):
 
         # data before buying/selling
-        actual_player = Player.objects.order_by('-creation_date')[0]
-        player_money = actual_player.money
-        ship = actual_player.ship
-        actual_planet = ship.planet
-        products_onboard = ShipProduct.objects.filter(ship=ship)
-        p_onboard = products_onboard.order_by('product__product_name').values_list(
+        actual_player=Player.objects.order_by('-creation_date')[0]
+        player_money=actual_player.money
+        ship=actual_player.ship
+        actual_planet=ship.planet
+        products_onboard=ShipProduct.objects.filter(ship=ship)
+        p_onboard=products_onboard.order_by('product__product_name').values_list(
             'product__product_name', 'quantity')
 
-        product_prices = PlanetProduct.objects.filter(
+        product_prices=PlanetProduct.objects.filter(
             planet=actual_planet).values_list('product__product_name', 'actual_price')
 
         # data after buying/selling
-        form = request.POST
+        form=request.POST
 
         print(form)
         # list of changed values
-        delta_list_final = []
+        delta_list_final=[]
         for o in p_onboard:
-            delta_list = []
+            delta_list=[]
             delta_list.append(o[0])
             print(delta_list)
             for d in form:
                 if o[0] == d:
-                    d_to_int = int(form[d])
+                    d_to_int=int(form[d])
 
         # check if not (-) value
                     if d_to_int < 0:
                         return HttpResponse("Nie możesz sprzedać tego, czego nie masz")
 
-                    delta = d_to_int - o[1]
-                    #print (delta)
+                    delta=d_to_int - o[1]
+                    # print (delta)
                     delta_list.append(delta)
                     delta_list_final.append(delta_list)
 
         # print(delta_list_final)
-        #print (product_prices)
-        balance = 0
+        # print (product_prices)
+        balance=0
         for d in delta_list_final:
             # print(d)
             for p in product_prices:
                 if p[0] == d[0]:
-                    buy_sell = p[1] * d[1]
-                    #print (buy_sell)
+                    buy_sell=p[1] * d[1]
+                    # print (buy_sell)
                 # if d[0]==p[1]:
                     balance += buy_sell
         print(balance)
-        #print(player_money)
+        # print(player_money)
 
         # update money in database
         if balance > player_money:
             return HttpResponse('Nie masz wystarczajaco kasy na zakupy')
         else:
-            player_money = player_money - balance
-            #actual_player, create = Player.objects.get_or_create(nick=actual_player)
-            actual_player.money = player_money
+            player_money=player_money - balance
+            actual_player.money=player_money
             actual_player.save()
 
             # update stock
-            #print(delta_list_final)
-            #print(p_onboard)
+
 
             for d in delta_list_final:
                 for p in p_onboard:
                     if d[0] == p[0]:
-                        new_items = d[1] + p[1]
-                        products_onboard, create = ShipProduct.objects.get_or_create(
+                        new_items=d[1] + p[1]
+                        products_onboard, create=ShipProduct.objects.get_or_create(
                             ship__ship_name=ship, product__product_name=p[0])
-                        products_onboard.quantity = new_items
+                        products_onboard.quantity=new_items
                         products_onboard.save()
-                        #print(new_items)
-
+    # check game over
     
+        stage = Stage.objects.filter(player=actual_player)[0].stage_number
+        if stage > 20:
+            return HttpResponse('Gra skończona')       
+
         return HttpResponseRedirect('/stage2/')
-        #return render(request, 'st_app/stage2.html')
+        # return render(request, 'st_app/stage2.html')
 
 
 # where are pirates?
 
 def pirates_location():
 
-    planets = Planet.objects.all()
-    pirates = choice(planets)
+    planets=Planet.objects.all()
+    pirates=choice(planets)
     return pirates
 # print(pirates_location())
 
@@ -247,11 +242,11 @@ def pirates_location():
 
 def next_round():
 
-    actual_player = Player.objects.order_by('-creation_date')[0]
-    last_stage = Stage.objects.get(player=actual_player)
-    next_stage = last_stage.stage_number + 1
-    last_stage, create = Stage.objects.get_or_create(player=actual_player)
-    last_stage.stage_number = next_stage
+    actual_player=Player.objects.order_by('-creation_date')[0]
+    last_stage=Stage.objects.get(player=actual_player)
+    next_stage=last_stage.stage_number + 1
+    last_stage, create=Stage.objects.get_or_create(player=actual_player)
+    last_stage.stage_number=next_stage
     last_stage.save()
 
 # next_round()
@@ -260,15 +255,14 @@ def next_round():
 class PlanetView(View):
 
     def get(self, request):
-        
-        d = dict()
-        actual_player = Player.objects.order_by('-creation_date')[0]
-        player_money = actual_player.money
-        ship = actual_player.ship
-        actual_planet = ship.planet
-        stage = Stage.objects.filter(player=actual_player)[0].stage_number
-        d['stage'] = stage
+
+        d=dict()
+        actual_player=Player.objects.order_by('-creation_date')[0]
+        player_money=actual_player.money
+        ship=actual_player.ship
+        actual_planet=ship.planet
+        stage=Stage.objects.filter(player=actual_player)[0].stage_number
+        d['stage']=stage
         d['player_money']=player_money
         d['actual_planet']=actual_planet
         return render(request, 'st_app/stage2.html', d)
-
