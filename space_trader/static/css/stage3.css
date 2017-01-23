@@ -2,7 +2,7 @@ html, body { margin: 0; padding: 0; }
 html { height: 100%; }
 
 body {
-  background: url(/static/content/bg_image.jpg);
+  background: url(/static/content/bg.jpg);
   cursor: url(/static/content/spaceship.png), auto;
   position: relative;
   min-height: 100%;

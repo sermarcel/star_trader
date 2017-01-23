@@ -62,17 +62,26 @@ class ProductDetail(generics.RetrieveDestroyAPIView):
 class StartGame(View):
 
     def get(self, request):
-        return render(request, 'st_app/main.html')
+        return render (request, 'st_app/main.html')
 
 # desccription with Stefan Stage
 
 class DescView(View):
 
     def get(self, request):
-        return render(request, 'st_app/description.html')
+        add_stage_one()
+        return render (request,'st_app/description.html')
 
   
 
+
+    
+# add player to stage one
+
+
+def add_stage_one():
+    actual_player = Player.objects.order_by('-creation_date')[0]
+    new_stage = Stage.objects.create(player=actual_player)
 
 # new player
 
@@ -81,14 +90,6 @@ class PlayerCreate(CreateView):
     fields = ['nick', 'ship']
     template_name = 'st_app/stage1.html'
     success_url = '/desc'
-
-# add player to stage one
-
-
-def add_stage_one():
-    actual_player = Player.objects.order_by('-creation_date')[0]
-    new_stage = Stage.objects.create(player=actual_player)
-
 
 # Random product price on each planet
 
@@ -121,17 +122,24 @@ class PriceView(View):
 
     def get(self, request, p_id):
 
+        # run random price
+        product_price()
         # download last player data
-        d = dict()
+        p_id=int(p_id)
 
+        d = dict()
         actual_player = Player.objects.order_by('-creation_date')[0]
         player_money = actual_player.money
         ship = actual_player.ship
         ship=Ship.objects.get(ship_name=ship)
+        if p_id == ship.planet_id:
+            return HttpResponse ('Jesteś na tej planecie')
+        #next rund after checking if it's not the same planet
+        next_round()
             # changing player planet
         ship.planet_id=p_id
         ship.save()
-      
+
         actual_planet = ship.planet
         
         products_onboard = ShipProduct.objects.filter(ship=ship)
@@ -202,7 +210,7 @@ class PriceView(View):
             return HttpResponse('Nie masz wystarczajaco kasy na zakupy')
         else:
             player_money = player_money - balance
-            actual_player, create = Player.objects.get_or_create(nick=actual_player)
+            #actual_player, create = Player.objects.get_or_create(nick=actual_player)
             actual_player.money = player_money
             actual_player.save()
 
@@ -258,6 +266,8 @@ class PlanetView(View):
         player_money = actual_player.money
         ship = actual_player.ship
         actual_planet = ship.planet
+        stage = Stage.objects.filter(player=actual_player)[0].stage_number
+        d['stage'] = stage
         d['player_money']=player_money
         d['actual_planet']=actual_planet
         return render(request, 'st_app/stage2.html', d)
