@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, ProductSerializer
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
+from django.views.generic.list import ListView
 from rest_framework import status
 from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -87,6 +88,14 @@ class PlayerCreate(CreateView):
     template_name='st_app/stage1.html'
     success_url='/desc'
 
+# best players view
+class HallOfFameList (ListView):
+    model = Player
+    fields = '_all_'
+    template_name = 'st_app/hall_of_fame.html'
+    
+
+
 # Random product price on each planet
 
 def product_price():
@@ -94,8 +103,7 @@ def product_price():
     product_count=Product.objects.count()
     price_list=[]
 
-    print(planet_count)
-    print(product_count)
+ 
 
     for pl in Planet.objects.all():
         price_product_list=[]
@@ -161,7 +169,7 @@ class PriceView(View):
 
         product_prices=PlanetProduct.objects.filter(
             planet=actual_planet).values_list('product__product_name', 'actual_price')
-
+        
         # data after buying/selling
         form=request.POST
 
@@ -184,20 +192,41 @@ class PriceView(View):
                     # print (delta)
                     delta_list.append(delta)
                     delta_list_final.append(delta_list)
-
-        # print(delta_list_final)
-        # print (product_prices)
+        print (delta_list_final)
+        # calculate balance
         balance=0
         for d in delta_list_final:
             # print(d)
             for p in product_prices:
                 if p[0] == d[0]:
                     buy_sell=p[1] * d[1]
-                    # print (buy_sell)
-                # if d[0]==p[1]:
                     balance += buy_sell
-        print(balance)
-        # print(player_money)
+        #print(balance)
+        
+        # calulate capacity
+        standard_ship_capacity = ship.capacity
+        products_all_list = list(Product.objects.values_list('product_name', 'how_many_space').all()) 
+        capacity_used = 0
+        for p in p_onboard:
+            for pr in products_all_list:
+                if p[0] == pr[0]:
+                    used = p[1] * pr[1]
+                    capacity_used += used 
+        actual_capacity = standard_ship_capacity - capacity_used
+
+        capacity_balance=0
+        for d in delta_list_final:
+            for p in products_all_list:
+                if d[0] == p[0]:
+                    buy_sell = d[1] * p[1]
+                    capacity_balance += buy_sell
+                    
+        print (capacity_balance)    
+        actual_capacity = actual_capacity - capacity_balance
+        print (actual_capacity)
+        if actual_capacity > standard_ship_capacity or actual_capacity < 0:
+            return HttpResponse('Nie wystarczająco miejsca w ładowni')
+            
 
         # update money in database
         if balance > player_money:
@@ -208,7 +237,6 @@ class PriceView(View):
             actual_player.save()
 
             # update stock
-
 
             for d in delta_list_final:
                 for p in p_onboard:

@@ -7,6 +7,7 @@ body {
   min-height: 100%;
 }
 
+
 #bgvideo {
 	position: fixed;
     top: 50%;
@@ -25,7 +26,6 @@ body {
 }
 
 
-
 #ramka {
 	width: 900px;
 	height: 550px;
@@ -34,46 +34,35 @@ body {
 	background-color: rgba(255, 255, 255, 0.1);
 	text-align: left;
 	margin: -250px 0 0 -450px;
-  	left: 50%;
+  left: 50%;
  	top: 50%;
- 	position: absolute;
+  position: absolute;
 }
 
+#h1 {
+  color: orange;
+  font-size: 28px;
+  padding-bottom: 20px;
+}
 
-
-#tekst {
+#history {
 	color: white;
-	font-size: 35px;
+	font-size: 14px;
+	padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
 	font-family: 'VT323', monospace;
-	padding: 20px;
-	width: 45%;
-	float: left;	
 }
 
-#bilans {
-	color: yellow;
-	font-size: 20px;
-	font-family: 'VT323', monospace;
-	padding: 20px;
-	width: 45%;
-	float: right;
-	text-align: right;
+
+#stefan {
+  font-size: 16px;
+  color: yellow;
+  font-family: 'VT323', monospace;
+  padding-top: 100px;
 }
 
-.obok {
-	width: 400px;
-	height: 200px;
-	float: left;
-	text-align: center;
-	margin-left: 30px;
-	padding-right: 20px;
-	padding-left: 30px;
-	padding-top: 10px;
-}
 
-.planets {
-	color: white;
-}
 
 
 .button {
@@ -84,6 +73,7 @@ body {
   font-size: 20px;
   padding: 20px;
   width: 100%;
+  margin-top: 0;
   cursor: url(content/spaceship.png), auto;
 }
 
@@ -101,4 +91,3 @@ body {
   	position: absolute;
   	bottom: 0;
 }
-
