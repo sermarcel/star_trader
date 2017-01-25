@@ -20,19 +20,42 @@
 <section>
 	<span id="ramka">
 		<div id="history"> 
+        
+<table class="table">
 			<h1 id="h1"> Lista najlepszych graczy </h1>
-            <table>
-            {%for player in object_list %}
-                  <tr>
-                <td>{{ player.nick}}</td>
-                <td>{{ player.money }}</td>
-                <td> {{player.ship}}</td>
-                <td>{{player.creation_date}}</td>
-            </tr>
+  <thead class="thead-inverse">
+    <tr>
+      <th>#</th>
+      <th>Nick</th>
+      <th>Player money</th>
+      <th>Player ship</th>
+      <th>Creation date</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+            {%for p in top_5_players %}
+      
+      <th scope="row"></th>
+     
+                <td>{{ p.nick}}</td>
+                <td>{{ p.money }}</td>
+                <td> {{p.ship}}</td>
+                <td>{{p.creation_date}}</td>
+    </tr>
+    </tr>
             {% endfor %}
+  </tbody>
+</table>
+
+
+
+
+
 		</div>
 
- 	<a href="main.html"><input type="button" class="button" value="Powrót"/></a>
+ 	<a href="/start"><input type="button" class="button" value="Powrót"/></a>
 
 	</span>
  

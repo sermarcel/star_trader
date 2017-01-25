@@ -88,12 +88,16 @@ class PlayerCreate(CreateView):
     template_name='st_app/stage1.html'
     success_url='/desc'
 
-# best players view
-class HallOfFameList (ListView):
-    model = Player
-    fields = '_all_'
-    template_name = 'st_app/hall_of_fame.html'
+# top 5 players view
+class HallOfFameList (View):
     
+    def get(self,request):
+
+        d=dict()
+        top_5_players = Player.objects.all().order_by('-money')[:5]
+        d['top_5_players'] = top_5_players
+        return render (request,'st_app/hall_of_fame.html', d)
+        
 
 
 # Random product price on each planet
