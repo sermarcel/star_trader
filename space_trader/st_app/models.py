@@ -69,5 +69,24 @@ class Stage (models.Model):
     def __str__(self):
         return 'Player {} is on stage {}'.format(self.player, self.stage_number)
 
+class Event (models.Model):
+
+    event_id = models.IntegerField (null = False)
+    event_name = models.CharField (max_length = 32)
+    image = models.ImageField ()
+    description = models.TextField()
+
+    def __str__(self):
+
+        return self.event_name
+
+class EventEffect(models.Model):
+
+    event = models.OneToOneField(Event)
+    stage = models.IntegerField(null=True, blank=True)
+    product = models.ManyToManyField(Product, blank=True)
+    money = models.IntegerField(null=True, blank=True)
+    quantity = models.IntegerField (null=True, blank=True)
+    
 
 

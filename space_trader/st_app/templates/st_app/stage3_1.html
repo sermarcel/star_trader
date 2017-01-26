@@ -23,9 +23,7 @@
                     {% csrf_token %}
 					<p style="color: springgreen">Twoja kasa: 
                     {{ player_money }} </p>
-                    <p style="display: none"> Player:
-                    <input  value='{{ actual_player}}' > </p>
-                     
+
                     {% for p in products_onboard %}
 					<p>{{ p.product}}
                     <input class='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'> </p>
@@ -35,6 +33,8 @@
                     
                     <input type="submit" class="button" style="width: 100%; margin-left: 0" value="DALEJ">
 				</form>
+                   <p style="color: springgreen"> Zajęta przestrzeń w ładowni: 
+                    {{ actual_capacity}} </p>
 			</div>
 		
 

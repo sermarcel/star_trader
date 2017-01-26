@@ -1,5 +1,6 @@
 from django.contrib import admin
-from st_app.models import Player, Ship, Product, Planet, PlanetProduct, ShipProduct,Stage
+from st_app.models import Player, Ship, Product, Planet, PlanetProduct, \
+ShipProduct,Stage, Event, EventEffect
 
 @admin.register(Player)
 class PlayerAdmin(admin.ModelAdmin):
@@ -37,3 +38,13 @@ class ShipProductAdmin(admin.ModelAdmin):
 class StageAdmin(admin.ModelAdmin):
     
     list_display =('player','stage_number')
+
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    
+    list_display =('event_id','event_name')
+
+@admin.register(EventEffect)
+class EventEffectAdmin(admin.ModelAdmin):
+    
+    list_display =('event',)
