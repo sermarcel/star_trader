@@ -43,10 +43,11 @@
 				<p style="color: lightblue">Cennik towarów na planecie: </p>
 
 				  {%for p in product_prices%}
-				   <p> {{ p.product}}
+                  
+				   <p> {{ p.product}} 
 
                     <input   value='{{ p.actual_price}}'> </p>
-            
+                    
                     {% endfor %}
 			</div>
 

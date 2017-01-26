@@ -145,18 +145,36 @@ class PriceView(View):
         # changing player planet
         ship.planet_id=p_id
         ship.save()
-
         actual_planet=ship.planet
-
+        
         products_onboard=ShipProduct.objects.filter(ship=ship)
+        p_onboard=products_onboard.order_by('product__product_name').values_list(
+            'product__product_name', 'quantity')
         product_prices=PlanetProduct.objects.filter(planet=actual_planet)
+        
+        # show actual capacity
+        standard_ship_capacity = ship.capacity
+        products_all_list = list(Product.objects.values_list('product_name', 'how_many_space').all()) 
+        capacity_used = 0
+        for p in p_onboard:
+            for pr in products_all_list:
+                if p[0] == pr[0]:
+                    used = p[1] * pr[1]
+                    capacity_used += used 
+        actual_capacity = standard_ship_capacity - capacity_used
 
-        d['actual_player']=actual_player
-        d['player_money']=player_money
-        d['ship']=ship
-        d['actual_planet']=actual_planet
-        d['products_onboard']=products_onboard
-        d['product_prices']=product_prices
+
+
+
+
+        d['actual_player'] = actual_player
+        d['player_money'] = player_money
+        d['ship'] = ship
+        d['actual_planet'] = actual_planet
+        d['products_onboard'] = products_onboard
+        d['product_prices'] = product_prices
+        d['actual_capacity'] = actual_capacity 
+        d['products_all'] = products_all_list
 
         return render(request, 'st_app/stage3_1.html', d)
 
