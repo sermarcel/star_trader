@@ -19,15 +19,14 @@
 		
 			<div class="towary">
 
-				<form id= action="" method="POST" >
+				<form  action="" method="POST" >
                     {% csrf_token %}
 					<p style="color: springgreen">Twoja kasa: 
                     {{ player_money }} </p>
 
                     {% for p in products_onboard %}
-					<p>{{ p.product}}
+					<p>{{ p.product}} 
                     <input class='prod' name="{{p.product}}" type="number" value='{{ p.quantity}}'> </p>
-                    
                     {% endfor %}
 					<options='disable'>
                     
@@ -44,13 +43,18 @@
 
 				  {%for p in product_prices%}
                   
-				   <p> {{ p.product}} 
+				   <p> {{ p.product}}                       
 
                     <input   value='{{ p.actual_price}}'> </p>
-                    
-                    {% endfor %}
+                    <p  style="color: springgreen;font-size: 12px" >
+                    {% endfor %}   
+                                    Miejsce w ładowni:
+             {% for pr in products_all%}
+               {{pr.product_name}}: {{pr.how_many_space}} 
+                    {% endfor %}    </p>             
 			</div>
-
+                
+            
 	</span>
  
 </section>

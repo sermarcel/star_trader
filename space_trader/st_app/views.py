@@ -151,7 +151,7 @@ class PriceView(View):
         p_onboard=products_onboard.order_by('product__product_name').values_list(
             'product__product_name', 'quantity')
         product_prices=PlanetProduct.objects.filter(planet=actual_planet)
-        
+        product_all = Product.objects.all()
         # show actual capacity
         standard_ship_capacity = ship.capacity
         products_all_list = list(Product.objects.values_list('product_name', 'how_many_space').all()) 
@@ -174,7 +174,7 @@ class PriceView(View):
         d['products_onboard'] = products_onboard
         d['product_prices'] = product_prices
         d['actual_capacity'] = actual_capacity 
-        d['products_all'] = products_all_list
+        d['products_all'] = product_all
 
         return render(request, 'st_app/stage3_1.html', d)
 
