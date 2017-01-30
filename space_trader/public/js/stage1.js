@@ -10,6 +10,15 @@ $ramka.children(i).hide()
 };
 */
 var $choice=$('#choice')
+$ships.mouseenter(function(){
+var $your_ship=this
+$($your_ship).next('.opis').fadeIn('slow')
+})
+.mouseleave(function(){
+var $your_ship=this
+
+$($your_ship).next('.opis').fadeOut('slow')
+});
 
 
 

@@ -6,7 +6,7 @@ from .serializers import ShipSerializer, PlanetSerializer, PlayerSerializer, Pro
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 from django.views.generic.list import ListView
 from rest_framework import status
-from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage
+from st_app.models import Ship, Planet, Player, Product, PlanetProduct, ShipProduct, Stage, Event, EventEffect
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from rest_framework import generics
 from random import randint, choice
@@ -316,3 +316,10 @@ class PlanetView(View):
         d['player_money']=player_money
         d['actual_planet']=actual_planet
         return render(request, 'st_app/stage2.html', d)
+
+def random_events():
+
+    number_of_events = Event.objects.all()
+    random_event = choice (number_of_events)
+    return random_event
+
