@@ -321,5 +321,6 @@ def random_events():
 
     number_of_events = Event.objects.all()
     random_event = choice (number_of_events)
+    
     return random_event
 

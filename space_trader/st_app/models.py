@@ -15,6 +15,7 @@ class Player(models.Model):
         return self.nick
 
 
+
 class Planet(models.Model):
     planet_name = models.CharField(max_length=12)
     product = models.ManyToManyField('Product', through='PlanetProduct')
