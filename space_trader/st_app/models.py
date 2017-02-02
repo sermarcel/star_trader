@@ -74,7 +74,7 @@ class Event (models.Model):
 
     event_id = models.IntegerField (null = False)
     event_name = models.CharField (max_length = 32)
-    image = models.ImageField ()
+    image = models.ImageField (upload_to='static/content/', null=True, blank=True)
     description = models.TextField()
 
     def __str__(self):

@@ -317,10 +317,17 @@ class PlanetView(View):
         d['actual_planet']=actual_planet
         return render(request, 'st_app/stage2.html', d)
 
-def random_events():
+# random events on the planet
+def random_events(request):
 
     number_of_events = Event.objects.all()
     random_event = choice (number_of_events)
-    
-    return random_event
+    if request.method == 'GET':
+        d=dict()
+        event_image = random_event.image
+        event_description = random_event.description
+        d['image'] = event_image
+        d['description'] = event_description
+        return render(request, 'st_app/event.html',d) 
+    # return random_event
 
