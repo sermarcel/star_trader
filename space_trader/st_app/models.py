@@ -88,6 +88,10 @@ class EventEffect(models.Model):
     product = models.ManyToManyField(Product, blank=True)
     money = models.IntegerField(null=True, blank=True)
     quantity = models.IntegerField (null=True, blank=True)
+
+
+    def __str__(self):
+        return '{}'.format(self.event)
     
 
 

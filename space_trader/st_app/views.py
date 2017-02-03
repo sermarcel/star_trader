@@ -321,11 +321,15 @@ class PlanetView(View):
 def random_events(request):
 
     number_of_events = Event.objects.all()
-    random_event = choice (number_of_events)
     if request.method == 'GET':
+        random_event = choice (number_of_events)
         d=dict()
         event_image = random_event.image
         event_description = random_event.description
+        change_parameter = EventEffect.objects.filter(event=random_event)[0]
+  
+        
+        print(change_parameter)
         d['image'] = event_image
         d['description'] = event_description
         return render(request, 'st_app/event.html',d) 
