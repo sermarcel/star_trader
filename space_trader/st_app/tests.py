@@ -18,8 +18,5 @@ from space_trader.settings import os,sys
 def random_events():
 
 number_of_events = Event.objects.all()
-random_event = choice (number_of_events)
-    
-    return random_event
-
-print (random_events)
+    random_event = choice (number_of_events)
+event_description = random_event.description

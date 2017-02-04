@@ -326,12 +326,24 @@ def random_events(request):
         d=dict()
         event_image = random_event.image
         event_description = random_event.description
-        change_parameter = EventEffect.objects.filter(event=random_event)[0]
-  
+        change_cash = EventEffect.objects.filter(event=random_event)[0].money
+        change_quantity = EventEffect.objects.filter(event=random_event)[0].quantity
+        change_stage = EventEffect.objects.filter(event=random_event)[0].stage
         
-        print(change_parameter)
+        actual_player=Player.objects.order_by('-creation_date')[0]
+        #player_money=actual_player.money
+ 
+
+        try:
+            actual_player.money+=change_cash
+            print(actual_player.money)           
+            actual_player.save()
+        except:
+            pass
+
         d['image'] = event_image
         d['description'] = event_description
         return render(request, 'st_app/event.html',d) 
     # return random_event
+
 
