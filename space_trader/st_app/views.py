@@ -64,7 +64,7 @@ class StartGame(View):
     def get(self, request):
         return render(request, 'st_app/main.html')
 
-# desccription with Stefan Stage
+# description with Stefan Stage
 
 class DescView(View):
 
@@ -326,21 +326,29 @@ def random_events(request):
         d=dict()
         event_image = random_event.image
         event_description = random_event.description
-        change_cash = EventEffect.objects.filter(event=random_event)[0].money
-        change_quantity = EventEffect.objects.filter(event=random_event)[0].quantity
-        change_stage = EventEffect.objects.filter(event=random_event)[0].stage
         
-        actual_player=Player.objects.order_by('-creation_date')[0]
-        #player_money=actual_player.money
- 
-
+        # checking which parameter has changed
+        change_quantity = EventEffect.objects.filter(event=random_event)[0].quantity
+        change_products = EventEffect.objects.filter(event=random_event)[0].product
+        actual_player = Player.objects.order_by('-creation_date')[0]
+        
         try:
-            actual_player.money+=change_cash
-            print(actual_player.money)           
+            change_cash = EventEffect.objects.filter(event=random_event)[0].money        
+            actual_player.money += change_cash
             actual_player.save()
         except:
             pass
-
+        try: 
+            change_stage = EventEffect.objects.filter(event=random_event)[0].stage
+            print(change_stage)            
+            stage = Stage.objects.filter(player=actual_player)[0]
+            stage.stage_number += change_stage
+            print(stage)
+            stage.save()
+        except:
+            pass
+        
+     
         d['image'] = event_image
         d['description'] = event_description
         return render(request, 'st_app/event.html',d) 

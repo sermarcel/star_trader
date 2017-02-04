@@ -11,13 +11,15 @@ $ramka.children(i).hide()
 */
 var $choice=$('#choice')
 $ships.mouseenter(function(){
-var $your_ship=this
-$($your_ship).next('.opis').fadeIn('slow')
+var $your_discription=$(this).next('.opis')
+//$ships.replaceWith($your_discription)
+$your_discription.fadeIn('slow')
 })
 .mouseleave(function(){
-var $your_ship=this
 
-$($your_ship).next('.opis').fadeOut('slow')
+var $your_discription=$(this).next('.opis')
+
+$your_discription.fadeOut('slow')
 });
 
 
