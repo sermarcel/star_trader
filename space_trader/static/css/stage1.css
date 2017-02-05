@@ -40,7 +40,7 @@ body {
 }
 
 
-p {
+#choice {
 	color: white;
 	font-size: 35px;
 	padding-top: 20px;
@@ -51,22 +51,28 @@ p {
 .statek {
 	display: inline-block;
 	float: left;
-	width: 350px;
+	width: 400px;
   height: 200px;
-  padding-top: 30px;
-  padding-bottom: 10px;
-  padding-left: 120px;
+  margin-top: 20px;
+  margin-left: 30px;
+  padding-top: 20px;
+  padding-left: 50px;
+
 }
 
 
 
 .opis {
+  display: inline-block;
   display: none;
-  width: 350px;
+	float: left;
+	width: 400px;
   height: 200px;
+  margin-top: 20px;
+  margin-left: 30px;
   padding: 10px;
   padding-left: 30px;
-  font-size: 18px;
+  font-size: 22px;
   color: white;
   font-family: 'VT323', monospace;
   background-color: #09092a;
@@ -79,29 +85,7 @@ p {
   font-family: 'VT323', monospace;
 }
 
-.koszt {
-  color: lime;
-  font-size: 20px;
-}
 
-
-.button {
-  background-color: white; 
-  color: black;
-  border: none;
-  text-align: center;
-  font-size: 20px;
-  padding: 20px;
-  width: 100%;
-  margin-top: 0;
-  cursor: url(content/spaceship.png), auto;
-}
-
-.button:hover {
-	background-color: #404040;
-	color: white;
-	cursor: url(content/spaceship.png), auto;
-}
 
 #stopka {
 	color: white;
@@ -125,6 +109,3 @@ p {
 #cssShip {
   visibility: hidden
 }
-
-
-
