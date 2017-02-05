@@ -1,6 +1,6 @@
 Space Trader Game.
 
-Technology: Django (requirements.txt included)
+Technology: Python3/Django1.10.3 (requirements.txt included)
 
 Game refers to the boardgame from 80s. You are space trader, who visits planets looking for goods.
 Your job is to buy/sell and afterwards pay dept skinny Stephan. You've only 20 rounds to make this.
@@ -21,7 +21,16 @@ How to play:
 
 7) During space trip you can meet Pirates and various space creatures
 
-Have a nice game
+Have a nice game!
 
+version 1.0
+Working modules: 
+- create new player
+- choose ship
+- visit planets
+- buy/sell goods
+- hall of fame with list of the best players
+- every change is saved to database
+- game ends at 20 round
 
-
+I'm still working on events at planets (e.g. Pirates attack), ship upgrading, ship-battle module
