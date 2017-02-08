@@ -1,0 +1,78 @@
+html, body { margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  cursor: url(content/spaceship.png), auto;
+  position: relative;
+  min-height: 100%;
+}
+
+
+#bgvideo {
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    background: url(content/bg_image.jpg) no-repeat;
+    background-size: cover; 
+}
+
+
+#ramka {
+	width: 900px;
+	height: 550px;
+	border-style: hidden;
+	margin: auto;
+	background-color: rgba(255, 255, 255, 0.3);
+	text-align: left;
+	margin: -250px 0 0 -450px;
+  left: 50%;
+ 	top: 50%;
+  position: absolute;
+}
+
+#nazwa {
+  color: orange;
+  font-size: 40px;
+  padding-top: 100px;
+  padding-left: 100px;
+}
+
+#zdarzenie {
+	color: white;
+	font-size: 26px;
+	padding-top: 20px;
+  padding-left: 100px;
+  padding-right: 40px;
+	font-family: 'VT323', monospace;
+}
+
+.opis {
+  width: 520px;
+  height: 400px;
+  display: inline-block;
+  float: left;
+}
+
+#obrazek {
+  padding-top: 150px;
+
+
+}
+
+#stopka {
+	color: white;
+	margin-left: auto;
+	padding: 10px;
+	font-size: 10px;
+  	position: absolute;
+  	bottom: 0;
+}

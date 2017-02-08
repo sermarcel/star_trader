@@ -95,6 +95,7 @@ class HallOfFameList (View):
 
         d=dict()
         top_5_players = Player.objects.all().order_by('-money')[:5]
+       
         d['top_5_players'] = top_5_players
         return render (request,'st_app/hall_of_fame.html', d)
         

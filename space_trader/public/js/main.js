@@ -1,6 +1,3 @@
-
-
-
 $(document).ready(function(event){
 var $startButt = $("#start");
 $('.options').hide();
