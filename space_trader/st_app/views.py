@@ -100,7 +100,6 @@ class HallOfFameList (View):
         return render (request,'st_app/hall_of_fame.html', d)
         
 
-
 # Random product price on each planet
 
 def product_price():
