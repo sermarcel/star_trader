@@ -122,7 +122,7 @@ def product_price():
             print(pp)
     return price_product_list
 
-# print(product_price())
+
 
 # Buying selling form
 class PriceView(View):
@@ -223,7 +223,7 @@ class PriceView(View):
                 if p[0] == d[0]:
                     buy_sell=p[1] * d[1]
                     balance += buy_sell
-        #print(balance)
+       
         
         # calulate capacity
         standard_ship_capacity = ship.capacity
