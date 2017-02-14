@@ -328,10 +328,30 @@ def random_events(request):
         event_description = random_event.description
         
         # checking which parameter has changed
-        change_quantity = EventEffect.objects.filter(event=random_event)[0].quantity
-        change_products = EventEffect.objects.filter(event=random_event)[0].product
+        change_quantity = int(EventEffect.objects.filter(event=random_event)[0].quantity)
+        change_products = list(EventEffect.objects.filter(event=random_event).values_list('product__product_name'))
         actual_player = Player.objects.order_by('-creation_date')[0]
+        player_ship = actual_player.ship
+        products_onboard = ShipProduct.objects.filter(ship=player_ship)
+        p_onboard = list(products_onboard.order_by('product__product_name').values_list(
+        'product__product_name', 'quantity'))
+
         
+        # upadating quantity of items
+        try:
+            for c in change_products:
+                for p in p_onboard:
+                    
+                    if c[0]==p[0]:
+                        new_quantity = change_quantity + p[1]
+                        products_onboard, create=ShipProduct.objects.get_or_create(
+                                ship__ship_name=player_ship, product__product_name=p[0])
+                        products_onboard.quantity=new_quantity
+                        products_onboard.save()
+        except:
+            pass
+                        
+        # updatting money
         try:
             change_cash = EventEffect.objects.filter(event=random_event)[0].money        
             actual_player.money += change_cash
@@ -339,16 +359,13 @@ def random_events(request):
         except:
             pass
         try: 
-            change_stage = EventEffect.objects.filter(event=random_event)[0].stage
-            print(change_stage)            
+            change_stage = EventEffect.objects.filter(event=random_event)[0].stage           
             stage = Stage.objects.filter(player=actual_player)[0]
             stage.stage_number += change_stage
-            print(stage)
             stage.save()
         except:
             pass
         
-     
         d['image'] = event_image
         d['description'] = event_description
         return render(request, 'st_app/event.html',d) 
