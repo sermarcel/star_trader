@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'space_trader',
         'ENGINE': 'mysql.connector.django',
         'USER': 'root',
-        'PASSWORD': 'coderslab',
+        'PASSWORD': 'krowia',
         'OPTIONS': {
             'autocommit': True,
         },

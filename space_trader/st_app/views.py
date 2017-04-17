@@ -351,7 +351,7 @@ def random_events(request):
         except:
             pass
                         
-        # updatting money
+        # updating money
         try:
             change_cash = EventEffect.objects.filter(event=random_event)[0].money        
             actual_player.money += change_cash
