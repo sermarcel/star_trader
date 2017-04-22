@@ -108,8 +108,8 @@ class LoadGame (View):
         d=dict()
         last_5_players = Player.objects.all().order_by('creation_date')[:5]
        
-        d['top_5_players'] = last_5_players
-        return render (request,'st_app/hall_of_fame.html', d)
+        d['last_5_players'] = last_5_players
+        return render (request,'st_app/load_game.html', d)
 
 
 
