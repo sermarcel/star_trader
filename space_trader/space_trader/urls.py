@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from st_app.views import ShipDetail, ShipList, PlanetDetail, PlanetList, PlayerCreate, \
-PriceView, PlanetView ,StartGame, DescView, HallOfFameList, random_events
+PriceView, PlanetView ,StartGame, DescView, HallOfFameList, random_events, LoadGame
 
 
 urlpatterns = [
@@ -32,6 +32,7 @@ urlpatterns = [
     url(r'^start', StartGame.as_view(), name='main'),
     url(r'^desc', DescView.as_view(), name='desc'),
     url(r'^event',random_events, name='event'),
+    url(r'^loadgame',LoadGame.as_view(), name='laod_game')
     
     
     

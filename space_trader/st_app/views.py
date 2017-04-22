@@ -100,6 +100,19 @@ class HallOfFameList (View):
         return render (request,'st_app/hall_of_fame.html', d)
         
 
+
+class LoadGame (View):
+    
+    def get(self,request):
+
+        d=dict()
+        last_5_players = Player.objects.all().order_by('creation_date')[:5]
+       
+        d['top_5_players'] = last_5_players
+        return render (request,'st_app/hall_of_fame.html', d)
+
+
+
 # Random product price on each planet
 
 def product_price():
@@ -315,6 +328,7 @@ class PlanetView(View):
         d['stage']=stage
         d['player_money']=player_money
         d['actual_planet']=actual_planet
+        d['player']=actual_player
         return render(request, 'st_app/stage2.html', d)
 
 # random events on the planet
