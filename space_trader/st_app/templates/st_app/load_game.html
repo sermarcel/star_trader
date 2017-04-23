@@ -6,6 +6,11 @@
     <meta name="description" content="Gra online Gwiezdny Kupiec">
     <link rel="stylesheet" type="text/css" href="/static/css/hall_of_fame.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript" src="static/js/loadgame.js"></script>
 
 	
     <title> Gwiezdny Kupiec </title>
@@ -33,7 +38,7 @@
       
     </tr>
   </thead>
-  <tbody>
+  <tbody id="loader">
     <tr>
             {%for p in last_5_players %}
       
@@ -48,10 +53,6 @@
             {% endfor %}
   </tbody>
 </table>
-
-
-
-
 
 		</div>
 
