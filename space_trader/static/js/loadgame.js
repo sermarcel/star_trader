@@ -1,8 +1,13 @@
 $(document).ready(function(){
 
-$("#loader").click(function(){
+$("#loader").find('tr').on('click',function(){
 
-var $player = this
-console.log($player)});
+var $player = this.children[1]
+//var $player = this
+
+$player = $($player).html()
+console.log($player)
+});
+
 
 });

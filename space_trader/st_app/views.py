@@ -110,8 +110,9 @@ class LoadGame (View):
        
         d['last_5_players'] = last_5_players
         return render (request,'st_app/load_game.html', d)
-
-
+    
+    def post(self, request):
+        pass
 
 # Random product price on each planet
 
