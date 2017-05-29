@@ -7,7 +7,7 @@ var $player = this.children[1]
 
 $player = $($player).html()
 console.log($player)
+$('#load').val('WCZYTAJ GRĘ DLA ' + $player +' !!!');
 });
-
 
 });
